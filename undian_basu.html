@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Undian Berhadiah Spesial Lebaran</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100 h-screen flex items-center justify-center">
+    <div class="max-w-md p-8 bg-white shadow-lg rounded-lg">
+      <div
+        id="popup"
+        class="fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex flex-col items-center justify-center hidden"
+      >
+        <div class="bg-white rounded-lg px-4 py-8 max-w-md">
+          <span
+            id="closePopup"
+            class="absolute top-0 right-0 mt-4 mr-4 text-gray-600 cursor-pointer"
+            >&times;</span
+          >
+          <h2 class="text-2xl font-bold">Undian Berhadiah Spesial Lebaran!</h2>
+          <br />
+          <div class="my-5">
+            Cikgu Bagi-bagi Hadiah Lebaran!<br />
+            3 Paket Skincare senilai 900 ribu untuk 3 orang.<br />
+            3 Box Nanopropolis senilai 300 ribu untuk 3 orang.<br />
+            <div class="grid gap-y-1 mt-10">
+              <i
+                >Berlaku untuk 30 nomor urut. Setiap penambahan 10 nomor, Cikgu
+                akan menambahkan 1 Paket Skincare lagi, dan seterusnya.</i
+              ><br />
+              <strong>Periode Undian: 29 Maret - 10 April</strong><br />
+            </div>
+          </div>
+          <h2 class="text-2xl font-bold mb-4">Syarat dan Ketentuan:</h2>
+          <p>
+            Plan A: Setiap 2 PIN akan mendapatkan 1 nomor undian.<br />
+            Plan B: Setiap 1 PIN akan mendapatkan 1 nomor undian.<br />
+            Plan C: Setiap 2 PIN akan mendapatkan 2 nomor undian.<br />
+          </p>
+        </div>
+        <h1 class="font-semibold text-white my-5">
+          Klik latar belakang untuk menutup
+        </h1>
+      </div>
+      <div
+        id="result"
+        class="text-3xl font-bold flex flex-col justify-center items-center text-center mb-4"
+      >
+       <p class="font-semibold text-xl" id="resultText">
+        Klik tombol dibawah untuk melakukan undian!
+       </p>
+      <button
+        id="btnDraw"
+        class="bg-pink-600 text-white text-xl mt-8 p-3 w-full rounded-lg transition-colors duration-300 hover:bg-pink-900 focus:outline-none focus:ring-2 focus:ring-pink-900 focus:ring-opacity-50"
+      >
+        Mulai Undian
+      </button>
+    </div>
+
+    <script type="module">
+      import names from "./daftar_nama.js";
+
+      const resultDiv = document.getElementById("resultText");
+      const drawButton = document.getElementById("btnDraw");
+      let undianSudahDilakukan = false;
+
+      function randomCount(iteration, delay) {
+        return new Promise((resolve) => {
+          let count = 0;
+          const interval = setInterval(() => {
+            count++;
+            resultDiv.textContent =
+              Math.floor(Math.random() * names.length) + 1;
+            if (count === iteration) {
+              clearInterval(interval);
+              resolve();
+            }
+          }, delay);
+        });
+      }
+
+      drawButton.addEventListener("click", async () => {
+        if (!undianSudahDilakukan) {
+          undianSudahDilakukan = true;
+          const iterations = 10;
+          const delay = 100;
+
+          drawButton.classList.add('hidden'); // Hide the button
+          await randomCount(iterations, delay);
+
+          const randomNumber = Math.floor(Math.random() * names.length);
+          const namaPemenang = names[randomNumber];
+          resultDiv.innerHTML = `Nomor yang beruntung : ${randomNumber + 1}<br>Atas nama : ${namaPemenang}`;
+
+          resultDiv.classList.add("animate-spin");
+          setTimeout(() => {
+            resultDiv.classList.remove("animate-spin");
+            drawButton.classList.remove('hidden'); // Show the button again
+          }, 1000);
+        } else {
+          undianSudahDilakukan = false;
+          resultDiv.textContent = "Klik tombol dibawah untuk melakukan undian!";
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("popup").classList.remove("hidden");
+      });
+
+      document
+        .getElementById("closePopup")
+        .addEventListener("click", function () {
+          document.getElementById("popup").classList.add("hidden");
+        });
+
+      document
+        .getElementById("popup")
+        .addEventListener("click", function (event) {
+          if (event.target === document.getElementById("popup")) {
+            document.getElementById("popup").classList.add("hidden");
+          }
+        });
+    </script>
+  </body>
+</html>
