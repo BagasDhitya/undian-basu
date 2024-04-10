@@ -51,15 +51,16 @@
         id="result"
         class="text-3xl font-bold flex flex-col justify-center items-center text-center mb-4"
       >
-       <p class="font-semibold text-xl" id="resultText">
-        Klik tombol dibawah untuk melakukan undian!
-       </p>
-      <button
-        id="btnDraw"
-        class="bg-pink-600 text-white text-xl mt-8 p-3 w-full rounded-lg transition-colors duration-300 hover:bg-pink-900 focus:outline-none focus:ring-2 focus:ring-pink-900 focus:ring-opacity-50"
-      >
-        Mulai Undian
-      </button>
+        <p class="font-semibold text-xl" id="resultText">
+          Klik tombol dibawah untuk melakukan undian!
+        </p>
+        <button
+          id="btnDraw"
+          class="bg-pink-600 text-white text-xl mt-8 p-3 w-full rounded-lg transition-colors duration-300 hover:bg-pink-900 focus:outline-none focus:ring-2 focus:ring-pink-900 focus:ring-opacity-50"
+        >
+          Mulai Undian
+        </button>
+      </div>
     </div>
 
     <script type="module">
@@ -90,17 +91,19 @@
           const iterations = 10;
           const delay = 100;
 
-          drawButton.classList.add('hidden'); // Hide the button
+          drawButton.classList.add("hidden"); // Hide the button
           await randomCount(iterations, delay);
 
           const randomNumber = Math.floor(Math.random() * names.length);
           const namaPemenang = names[randomNumber];
-          resultDiv.innerHTML = `Nomor yang beruntung : ${randomNumber + 1}<br>Atas nama : ${namaPemenang}`;
+          resultDiv.innerHTML = `Nomor yang beruntung : ${
+            randomNumber + 1
+          }<br>Atas nama : ${namaPemenang}`;
 
           resultDiv.classList.add("animate-spin");
           setTimeout(() => {
             resultDiv.classList.remove("animate-spin");
-            drawButton.classList.remove('hidden'); // Show the button again
+            drawButton.classList.remove("hidden"); // Show the button again
           }, 1000);
         } else {
           undianSudahDilakukan = false;
