@@ -44,6 +44,12 @@ const names = [
   "Rina",
   "Rina",
   "Tuti Madiun",
+  "Tina",
+  "Tina",
+  "Suharmi Cilacap",
+  "Suharmi Cilacap",
+  "Rina",
+  "Rina",
 ];
 
 export default names;
